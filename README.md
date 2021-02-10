@@ -1,4 +1,4 @@
-# springtime-vue
+# NTI team TagAll frontend
 
 ## Project setup
 ```

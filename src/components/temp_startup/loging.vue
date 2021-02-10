@@ -2,13 +2,26 @@
   <div id="loging">
       <div id="login-form">
       <fieldset>
-        <label id="main_title"> РЕГИСТРАЦИЯ </label>
-        <input type="email" placeholder="ПОЧТА" title="почта" v-model="user.login" required="true" autocomplete="username">
+        <label id="main_title"> {{ typeOfPage === 'auth' ? 'ВХОД' : typeOfPage === 'reg' ? 'РЕГИСТРАЦИЯ' : 'ВВЕДИТЕ КОД ПОДТВЕРЖДЕНИЯ'}} </label>
+
+        <input type="email" placeholder="ПОЧТА" title="почта" v-model="user.login" required="true" autocomplete="username" v-if="typeOfPage === 'reg' || typeOfPage === 'auth'">
+        <br v-if="typeOfPage === 'reg' || typeOfPage === 'auth'"/>
+        <input type="password" placeholder="ПАРОЛЬ" title="пароль" v-model="user.password" required="true" autocomplete="current-password" v-if="typeOfPage === 'reg' || typeOfPage === 'auth'">
+
+        <input type="text" placeholder="ВАШ КОД" title="код" required="true" autocomplete="code" v-if="typeOfPage === 'confirm'">
+
         <br/>
-        <input type="password" placeholder="ПАРОЛЬ" title="пароль" v-model="user.password" required="true" autocomplete="current-password">
-        <a id="back"> ВЕРНУТЬСЯ КО ВХОДУ </a>
-        <button @click="signin" title="Кнопка для входа в существующий аккаунт" class="btn">
-           <b>&#8594;</b>
+
+        <a @click="" class="trouble_link" v-if="typeOfPage === 'auth'"> ЗАБЫЛИ ПАРОЛЬ? </a>
+        <br v-if="typeOfPage === 'auth'"/>
+        <a @click="" class="trouble_link" v-if="typeOfPage === 'auth'"> РЕГИСТРАЦИЯ </a>
+
+        <a class="trouble_link" v-if="typeOfPage === 'reg' || typeOfPage === 'confirm'"> ВЕРНУТЬСЯ КО ВХОДУ </a>
+
+        <button @click="signup" title="Кнопка для входа в существующий аккаунт" class="btn">
+          <svg id="arrow" width="59" height="24" viewBox="0 0 59 24" fill="black" xmlns="http://www.w3.org/2000/svg">
+            <path d="M58.0607 13.0607C58.6464 12.4749 58.6464 11.5251 58.0607 10.9393L48.5147 1.3934C47.9289 0.807611 46.9792 0.807611 46.3934 1.3934C45.8076 1.97919 45.8076 2.92893 46.3934 3.51472L54.8787 12L46.3934 20.4853C45.8076 21.0711 45.8076 22.0208 46.3934 22.6066C46.9792 23.1924 47.9289 23.1924 48.5147 22.6066L58.0607 13.0607ZM0 13.5H57V10.5H0V13.5Z"/>
+          </svg>
         </button>
       </fieldset>
     </div>
@@ -19,23 +32,24 @@
   const baseURL = 'http://localhost:41143/';
   export default {
     name: 'loging',
-    props: ['access', 'refresh'],
+    props: ['access', 'refresh','typeOfPage'],
     data: function() {
       return { 
         user: {
           login: '',
           password: '',
         },
-        minPasswordLength: 8,
         queries: {
           signin: 'api/aunt/sign_in',
           register: 'api/aunt/register',
         },
       };
     },
+    mounted() {
+      //this.typeOfPage = localStorage.getItem("typeOfPage");
+    },
     computed: {
       isNotFilled: function() {
-
         return !(this.user.login !== undefined && this.user.login !== null && this.user.password !== undefined && this.user.password !== null && this.user.login.length > 0 && this.user.password.length >= this.minPasswordLength); 
       },
     },
@@ -44,6 +58,10 @@
         console.error(message);
         let field = document.getElementById('err_message');
         field.innerText = message;
+      },
+
+      setTypeOfPage: function (typeOfPage) {
+        this.typeOfPage = typeOfPage;
       },
 
       signin: async function(event) {
@@ -149,10 +167,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap%27');
 
-  #back {
+  .trouble_link {
     float: left;
-    left: 10%;
-    margin: 15px 10px 10px 30px;
+    text-decoration: underline;
+    margin: 0 0 0 6%;
   }
 
   #main_title {
@@ -211,25 +229,36 @@
   }
 
   .btn {
-    width: 100px;
-    height: 50px;
+    float: right;
+    width: 95px;
+    height: 46px;
+    margin: 0 6% 0 0 ;
     background: #F3F3F3;
-    margin: 10px 10px 10px 160px;
     border: 2px solid #6FB2E6;
     box-sizing: border-box;
     border-radius: 30px;
     transition: all 500ms ease;
   }
 
-  .btn b {
-    font-size: 150%;
-  }
 
   .btn:hover {
     background: #6FB2E6;
     color: #fff;
     box-shadow: inset 0 0 0 3px #6FB2E6;
+    cursor: pointer;
   }
+
+  #arrow {
+    height: 95%;
+    width: 95%;
+
+  }
+
+  .btn:hover svg {
+    fill: white;
+    transition: all 500ms ease;
+  }
+
 
   @media only all and (min-width: 882px) and (max-width: 1255px) {
       #login-form {

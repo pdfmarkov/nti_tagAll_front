@@ -1,53 +1,5 @@
 <template>
-  <div id="basic">
 
-    <div id="top-container">
-
-        <div id="area-container" class="inlines__align--center">
-          <div id="area-subcontainer">
-            <canvas id="area" ref="area" width="600" height="600" @click="checkArea">
-              Canvas not supported
-            </canvas>
-          </div>
-        </div>
-
-        <div id="form-container">
-          <form id="result">
-            <fieldset ref="x" title="Значение параметра x должно быть целым числом в пределах -5 до 3">
-              <label>x</label>
-              <label>
-                <select v-model="result.x" required="true">
-                  <option v-for="value in xValues" >{{ value }}</option>
-                </select>
-              </label>
-            </fieldset>
-            <fieldset ref="y" title="Значение параметра y должно быть целым число в интервале от -3 до 5">
-              <label>y</label>
-              <label>
-                <input type="text" placeholder="y in (-3, 5)" :maxlength="9" v-model="result.y" required="true" />
-              </label>
-            </fieldset>
-            <fieldset ref="r" title="Значение параметра r должно быть целым числом в пределах от 1 до 3">
-              <label>r</label>
-              <label>
-                <select v-model="result.r" required="true">
-                  <option v-for="value in xValues">{{ value }}</option>
-                </select>
-              </label>
-            </fieldset>
-            <fieldset class="inlines__align--center">
-              <button @click.prevent="check" class="btn">проверить</button>
-              <button @click.prevent="signout" class="btn">выйти</button>
-            </fieldset>
-          </form>
-        </div>
-
-    </div>
-
-    <loader v-if="isLoading" /><resultscontainer v-bind:results="results" v-else-if="results.length" />
-    <p class="empty-results" v-else>результаты отсутствуют</p>
-
-  </div>
 </template>
 
 <script>

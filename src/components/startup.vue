@@ -1,19 +1,19 @@
 <template>
   <div id="startup">
-    <loging :access="access" :refresh="refresh" />
+    <logo/>
+    <loging :access="access" :refresh="refresh" :typeOfPage="type"/>
   </div>
-
 </template>
 
 <script>
-  import hat from '@/components/temp_startup/hat'
   import loging from '@/components/temp_startup/loging'
+  import logo from '@/components/temp_startup/logo'
 
   export default {
     name: 'startup',
-    props: ['access', 'refresh'],
+    props: ['access', 'refresh', 'type'],
   	components: {
-  		hat,
+      logo,
       loging,
   	},
   }

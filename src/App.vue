@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <logo />
     <router-view/>
     <basement/>
   </div>
@@ -8,15 +7,13 @@
 
 <script>
 
-import logo from '@/components/logo'
 import basement from '@/components/basement'
 
-document.title = 'Lab.4, Markov/Tarasenko';
+document.title = 'Умный склад';
 
   export default {
     name: 'app',
     components: {
-      logo,
       basement
     },
   }

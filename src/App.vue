@@ -1,20 +1,18 @@
 <template>
   <div id="app">
     <router-view/>
-    <basement/>
   </div>
 </template>
 
 <script>
 
-import basement from '@/components/basement'
 
 document.title = 'Умный склад';
 
   export default {
     name: 'app',
     components: {
-      basement
+
     },
   }
 </script>

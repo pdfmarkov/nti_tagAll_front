@@ -1,5 +1,6 @@
 <template>
   <div class="info">
+
     <br>
     <h1>ООО “Современные технологии автоматизации”</h1>
     <br>
@@ -7,13 +8,8 @@
     <br>
     <h3>На данном сайте представлено пример того, как можно автоматизировать ваш склад и сэкономить на этом ваши деньги</h3>
 
-<!--      <svg width="78" height="63" viewBox="0 0 78 63" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--        <ellipse opacity="0.1" cx="39" cy="31.4844" rx="39" ry="31.4844" fill="#319CFF"/>-->
-<!--        <path d="M33 23.5165C33 22.7986 33.7341 22.3146 34.3939 22.5974L51.8553 30.0809C52.6634 30.4272 52.6634 31.5728 51.8553 31.9191L34.3939 39.4026C33.7341 39.6854 33 39.2014 33 38.4835V23.5165Z" fill="#319CFF"/>-->
-<!--      </svg>-->
     <button class="video">
-
-      <svg version="1.1" id="Capa_1" height="50" width="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+      <svg version="1.1" id="Capa_1" height="50" width="50" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
            viewBox="0 0 477.867 477.867" style="enableBackground:new 0 0 477.867 477.867;" fill="dodgerblue" xml:space="preserve">
         <g>
 	        <g>
@@ -24,17 +20,8 @@
 	        </g>
         </g>
       </svg>
-
-<!--      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
-<!--      <span class="material-icons video__button" style="font-size: 250%">play_circle</span>-->
       <label class="video__link">Посмотреть видео о разработке</label>
     </button>
-
-
-
-
-
-
   </div>
 </template>
 
@@ -46,19 +33,27 @@ export default {
 
 <style>
 
-.video {
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  cursor:pointer;
-  overflow: hidden;
-  outline:none;
+svg {
+  transition: all 800ms ease;
+}
 
-  margin: 0 0 0 50px;
+.video {
+
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+
+  margin: 15px 0 100px 50px;
   text-align: center;
-  color: dodgerblue; /* White text */
-  padding: 12px 16px; /* Some padding */
-  font-size: 16px; /* Set a font size */
+  color: dodgerblue;
+  padding: 12px 16px;
+  font-size: 16px;
+  transition: all 600ms ease;
+  opacity: 0.6;
+
 }
 
 .video__link{
@@ -66,13 +61,11 @@ export default {
   font-size: 200%;
   text-decoration: underline;
   cursor: pointer;
+  vertical-align: 15px;
 }
 
-.video__button {
-  font-size: 250%;
-  text-align: center;
-  cursor: pointer;
-
+.video:hover {
+  opacity: 1;
 }
 
 

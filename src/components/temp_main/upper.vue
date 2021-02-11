@@ -16,7 +16,7 @@
       <a class="nav__link" href="#">Видеопоток</a>
       <a class="nav__link" href="#">Видео-поток</a>
       <a class="nav__link" href="#">О нас</a>
-      <a class="nav__link active lal"  activehref="#">Василий Пупкин</a>
+      <a class="nav__link active lal" activehref="#">Василий Пупкин</a>
       <a class="nav__link active lal" href="#">Выйти</a>
     </nav>
       </div>

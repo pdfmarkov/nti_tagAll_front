@@ -31,8 +31,9 @@ public class User extends UserBaseEntity{
     private String secondname;
     @Column(name = "thirdname")
     private String thirdname;
-    @Column(name = "thirdname")
-    private String refreshToken;
+    @Column(name = "phone")
+    private String phone;
+
 
     @OneToMany(mappedBy = "user")
     private List<Dot> dotList;

@@ -33,21 +33,12 @@ public class MainController {
 
         Dot dot = new Dot();
 
-        dot.setX(dotDto.getX());
-        dot.setY(dotDto.getY());
-        dot.setR(dotDto.getR());
+        dot.setDeal(dotDto.getDeal());
 
-        try {
-            dotService.validate(dot);
-        }catch (NumberFormatException | NullPointerException ex) {
-            response.put("perpose", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(response);
-        }
 
         User user = userService.getCurrentUser();
         dot.setUser(user);
 
-        dotService.checkDots(dot);
         dotService.saveDot(dot);
 
         dot.setUser(null);

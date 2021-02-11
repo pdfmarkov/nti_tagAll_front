@@ -1,16 +1,18 @@
 <template>
   <div>
-    <lk/>
+    <startup :access="accessTokenName" :refresh="refreshTokenName"/>
   </div>
 </template>
 
 <script>
-import lk from "@/components/lk";
+
+import startup from '@/components/startup'
+import hat from '@/components/temp_startup/hat'
 
 export default {
-  name: 'lk_container',
+  name: 'registration',
   components: {
-    lk,
+    startup,
   },
   data: function() {
     return {
@@ -20,9 +22,11 @@ export default {
   },
   computed: {
     access: function() {
+      //return this.$session.get(this.accessTokenName);
       return localStorage.getItem("accessToken");
     },
     refresh: function() {
+      //return this.$session.get(this.refreshTokenName);
       return localStorage.getItem("refreshToken");
     },
     isAuthorized: function() {
@@ -51,6 +55,7 @@ export default {
   margin: 0 auto;
   padding: 0;
 }
+
 
 @media only all and (min-width: 1256px) {
   #wrap {

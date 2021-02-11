@@ -1,16 +1,17 @@
 <template>
   <div>
-    <lk/>
+    <basic :access="accessTokenName" :refresh="refreshTokenName" v-if="isAuthorized" />
   </div>
 </template>
 
 <script>
-import lk from "@/components/lk";
+
+import basic from '@/components/basic'
 
 export default {
-  name: 'lk_container',
+  name: 'start',
   components: {
-    lk,
+    basic,
   },
   data: function() {
     return {
@@ -20,9 +21,11 @@ export default {
   },
   computed: {
     access: function() {
+      //return this.$session.get(this.accessTokenName);
       return localStorage.getItem("accessToken");
     },
     refresh: function() {
+      //return this.$session.get(this.refreshTokenName);
       return localStorage.getItem("refreshToken");
     },
     isAuthorized: function() {

@@ -18,6 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,13 +32,15 @@ public class AuthorizationController {
     private final TokenHandler jwtTokenProvider;
     private final UserService userService;
     private final EmailService emailService;
+    private final Code codeGenerator;
 
     @Autowired
-    public AuthorizationController(AuthenticationManager authenticationManager, TokenHandler jwtTokenProvider, UserService userService, EmailService emailService) {
+    public AuthorizationController(AuthenticationManager authenticationManager, TokenHandler jwtTokenProvider, UserService userService, EmailService emailService, Code codeGenerator) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
         this.emailService = emailService;
+        this.codeGenerator = codeGenerator;
     }
 
     @PostMapping("/register")
@@ -46,37 +49,36 @@ public class AuthorizationController {
         try {
             String username = authenticationRequestDto.getLogin();
             String password = authenticationRequestDto.getPassword();
+            String code = authenticationRequestDto.getCode();
 
-            if (username == null || password == null) {
-                throw new NonUniqueResultException("username or password should not be empty");
+            if (codeGenerator.checkCode(username, code)) {
+                User user = new User(username, password);
+                user.addRole(Role.ROLE_ADMIN);
+
+
+                String refreshToken = jwtTokenProvider.generateRefreshToken(user);
+                user.setRefreshToken(refreshToken);
+
+                String accessToken = jwtTokenProvider.generateAccessToken(user);
+
+                userService.saveUser(user);
+
+                Authentication auth = jwtTokenProvider.getAuthentication(accessToken);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+                System.out.println("я срабатываю");
+                response.put("refreshToken", refreshToken);
+                response.put("accessToken", accessToken);
+
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            } else
+            {
+                response.put("description","Неверный код подтверждения");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
             }
 
-            try {
-                userService.findByUsername(username);
-                throw new NonUniqueResultException("Username is already in use.");
-            }catch (UserNotFoundException ex) {}
-
-            User user = new User(username, password);
-            user.addRole(Role.ROLE_ADMIN);
 
 
-            String refreshToken = jwtTokenProvider.generateRefreshToken(user);
-            user.setRefreshToken(refreshToken);
-
-            String accessToken = jwtTokenProvider.generateAccessToken(user);
-
-            userService.saveUser(user);
-
-            Authentication auth = jwtTokenProvider.getAuthentication(accessToken);
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
-            response.put("refreshToken", refreshToken);
-            response.put("accessToken", accessToken);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         }catch (IncorrectResultSizeDataAccessException | NonUniqueResultException ex) {
-            response.put("description", ex.getMessage());
-
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
         }
     }
@@ -87,41 +89,25 @@ public class AuthorizationController {
         try {
             String username = authenticationRequestDto.getLogin();
             String password = authenticationRequestDto.getPassword();
-            String accessToken = jwtTokenProvider.generateAccessToken(new User(username, password));
 
-//            if (username == null || password == null) {
-//                throw new NonUniqueResultException("username or password should not be empty");
-//            }
-//
-//            try {
-//                userService.findByUsername(username);
-//                throw new NonUniqueResultException("Username is already in use.");
-//            }catch (UserNotFoundException ex) {}
+            if (username == null || password == null) {
+                throw new NonUniqueResultException("Username or password should not be empty");
+            }
 
-//            User user = new User(username, password);
-//            user.addRole(Role.ROLE_ADMIN);
-//
-//
-//            String refreshToken = jwtTokenProvider.generateRefreshToken(user);
-//            user.setRefreshToken(refreshToken);
-//
-//            String accessToken = jwtTokenProvider.generateAccessToken(user);
-//
-//            userService.saveUser(user);
-//
-//            Authentication auth = jwtTokenProvider.getAuthentication(accessToken);
-//            SecurityContextHolder.getContext().setAuthentication(auth);
-//
-//            response.put("refreshToken", refreshToken);
-//            response.put("accessToken", accessToken);
-//
-//            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            try {
+                userService.findByUsername(username);
+                throw new NonUniqueResultException("Username is already in use.");
+            }catch (UserNotFoundException ex) {}
 
-            emailService.sendSimpleMessage(username,"Подтверждение почты. Умный склад", accessToken);
+            codeGenerator.generateCode(username);
 
+            try {
+                emailService.sendSimpleMessage(username,"Подтверждение почты. Умный склад", "Ваш пароль для входа: "+ codeGenerator.getCode(username));
+            } catch (Exception e){
+               throw new NonUniqueResultException("Произошла ошибка при отправке письма");
+            }
 
-
-
+            response.put("email", true);
             return ResponseEntity.ok(response);
         }catch (IncorrectResultSizeDataAccessException | NonUniqueResultException ex) {
             response.put("description", ex.getMessage());

@@ -10,10 +10,6 @@ public interface DotService {
 
     List<Dot> getDotsByUser(User user);
 
-    boolean checkDots(Dot dot);
-
-    Dot validate(DotBaseEntity dot) throws NumberFormatException;
-
     void clearByUser(User user);
 
     Dot saveDot(Dot dot);

@@ -4,6 +4,7 @@ import registration_container from "@/components/temp_views/registration_contain
 import error_container from "@/components/temp_views/error_container";
 import page_container from "@/components/temp_views/page_container";
 import lk_container from "@/components/temp_views/lk_container";
+import phones_container from "@/components/temp_views/phones_container";
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,7 @@ export default new VueRouter({
         {
             path: '/',
             name: 'default-page',
-            component: registration_container,
+            component: page_container,
             beforeEnter: (to, from, next) => {
                     next({name: 'main-page'});
             }
@@ -60,7 +61,7 @@ export default new VueRouter({
             beforeEnter: (to, from, next) => {
                 if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
                     next({name: 'main-page'})
-                } else if (from.name === 'registration') {
+                } else if (from.name === 'registration-page') {
                     next()
                 } else next({name: 'auth-page'});
             }
@@ -72,11 +73,6 @@ export default new VueRouter({
             component: page_container,
             beforeEnter: (to, from, next) => {
                 next();
-                // TODO: RETURN AFTER ALL
-                // if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) next();
-                // else next({
-                //     name: 'error-page-app',
-                // });
             }
         },
         {
@@ -85,11 +81,14 @@ export default new VueRouter({
             component: lk_container,
             beforeEnter: (to, from, next) => {
                 next();
-                // TODO: RETURN AFTER ALL
-                // if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) next();
-                // else next({
-                //     name: 'error-page-app',
-                // });
+            }
+        },
+        {
+            path: '/phones',
+            name: 'phones-page',
+            component: phones_container,
+            beforeEnter: (to, from, next) => {
+                next();
             }
         },
         {

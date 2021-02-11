@@ -61,6 +61,7 @@ h1,h2,h3,input,button {
   border-radius: 30px;
   color: black;
   transition: all 500ms ease;
+  outline: 0 none !important;
 }
 
 .btn__more {
@@ -72,5 +73,6 @@ h1,h2,h3,input,button {
   border-radius: 30px;
   color: white;
   transition: all 500ms ease;
+  outline: 0 none !important;
 }
 </style>

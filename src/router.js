@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import registration_container from "@/components/temp_views/registration_container";
 import error_container from "@/components/temp_views/error_container";
 import page_container from "@/components/temp_views/page_container";
+import lk_container from "@/components/temp_views/lk_container";
 
 Vue.use(VueRouter);
 
@@ -14,11 +15,7 @@ export default new VueRouter({
             name: 'default-page',
             component: registration_container,
             beforeEnter: (to, from, next) => {
-                // if ((localStorage.getItem("refreshToken") !== null) || (localStorage.getItem("accessToken") !== null)) {
                     next({name: 'main-page'});
-                // } else {
-                //     next({name: 'auth-page'});
-                // }
             }
         },
         {
@@ -73,6 +70,19 @@ export default new VueRouter({
             path: '/main',
             name: 'main-page',
             component: page_container,
+            beforeEnter: (to, from, next) => {
+                next();
+                // TODO: RETURN AFTER ALL
+                // if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) next();
+                // else next({
+                //     name: 'error-page-app',
+                // });
+            }
+        },
+        {
+            path: '/lk',
+            name: 'lk-page',
+            component: lk_container,
             beforeEnter: (to, from, next) => {
                 next();
                 // TODO: RETURN AFTER ALL

@@ -4,6 +4,7 @@ package org.comrades.springtime.controller.rest;
 import org.comrades.springtime.module.Dot;
 import org.comrades.springtime.module.User;
 import org.comrades.springtime.module.requested.DotDto;
+import org.comrades.springtime.module.requested.ParamDto;
 import org.comrades.springtime.servise.DotService;
 import org.comrades.springtime.servise.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class MainController {
 
         return ResponseEntity.ok("");
     }
+
 
     @PostMapping("/dots/all")
     public ResponseEntity getEveryUserDot() {

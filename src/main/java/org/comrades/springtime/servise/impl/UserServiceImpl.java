@@ -85,6 +85,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateFirstName(User user, String firstname) {
+        user.setFirstname(firstname);
+        userRepository.updateUserFirstName(user.getUID(),firstname);
+        return user;
+
+    }
+
+    @Override
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();

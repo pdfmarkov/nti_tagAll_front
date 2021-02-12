@@ -14,7 +14,6 @@ import java.util.List;
 public class User extends UserBaseEntity{
 
     public User() {}
-
     public User(String login, String password) {
         super(login, password);
     }
@@ -33,7 +32,6 @@ public class User extends UserBaseEntity{
     private String thirdname;
     @Column(name = "phone")
     private String phone;
-
 
     @OneToMany(mappedBy = "user")
     private List<Dot> dotList;

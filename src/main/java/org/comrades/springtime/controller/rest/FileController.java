@@ -24,7 +24,7 @@ public class FileController {
     @Autowired
     FileService fileService;
 
-    @PostMapping("/Upload")
+    @PostMapping("/upload")
     public FileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 
         FileModel model = fileService.saveFile(file);
@@ -33,7 +33,7 @@ public class FileController {
         return new FileResponse(model.getFileName(), model.getFileType(), fileUri);
     }
 
-    @PostMapping("/UploadMultipleFiles")
+    @PostMapping("/uploadmultiplefiles")
     public List<FileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files).
                 stream().

@@ -9,8 +9,6 @@
     </h3>
     <div>
       <br>
-      <h3>*ТУТ КРУТЫЕ ЧЕЛИКИ*</h3>
-      <br>
       <img src="@/assets/dreamTeam.png" alt="полки" class="i" style="width: 70%; "   >
     </div>
   </div>

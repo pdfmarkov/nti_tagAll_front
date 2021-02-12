@@ -67,6 +67,7 @@ export default {
       },
     };
   },
+
   computed: {
     isNotFilled: function () {
       return !(this.user.login !== undefined && this.user.login !== null && this.user.password !== undefined && this.user.password !== null && this.user.login.length > 0 && this.user.password.length > 0);
@@ -125,7 +126,7 @@ export default {
           localStorage.setItem("accessToken", json.accessToken);
           localStorage.setItem("refreshToken", json.refreshToken);
 
-          localStorage.setItem("username", this.user.login);
+          localStorage.setItem("login", this.user.login);
 
 
           this.$router.push({name: 'main-page'});

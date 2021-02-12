@@ -4,6 +4,7 @@ import org.comrades.springtime.customExceptions.UserNotFoundException;
 import org.comrades.springtime.module.Role;
 import org.comrades.springtime.module.User;
 import org.comrades.springtime.module.requested.AuthenticationRequestDto;
+import org.comrades.springtime.module.requested.ParamDto;
 import org.comrades.springtime.security.jwt.TokenHandler;
 import org.comrades.springtime.servise.EmailService;
 import org.comrades.springtime.servise.UserService;
@@ -53,7 +54,7 @@ public class AuthorizationController {
 
             if (codeGenerator.checkCode(username, code)) {
                 User user = new User(username, password);
-                user.addRole(Role.ROLE_ADMIN);
+                user.addRole(Role.ROLE_USER);
 
 
                 String refreshToken = jwtTokenProvider.generateRefreshToken(user);
@@ -109,6 +110,7 @@ public class AuthorizationController {
 
             response.put("email", true);
             return ResponseEntity.ok(response);
+
         }catch (IncorrectResultSizeDataAccessException | NonUniqueResultException ex) {
             response.put("description", ex.getMessage());
 
@@ -116,6 +118,27 @@ public class AuthorizationController {
         }
     }
 
+    @PostMapping("/updatefirstname")
+    public ResponseEntity updateFirstName(@RequestBody ParamDto paramDto) {
+        Map<Object, Object> response = new HashMap<>();
+
+        System.out.println("Я СРАБАТЫВАЮ И ХОЧУ ОБНОВИТЬ");
+
+        try {
+            System.out.println(paramDto);
+            System.out.println(paramDto.getLogin());
+            System.out.println(paramDto.getFirstname());
+            User user = userService.findByUsername(paramDto.getLogin());
+            userService.updateFirstName(user,paramDto.getFirstname());
+            response.put("firstname", userService.findByUsername(paramDto.getLogin()).getFirstname());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Я ОБНОВИЛ");
+
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/sign_in")
     public ResponseEntity signIn(@RequestBody AuthenticationRequestDto authenticationRequestDto) {

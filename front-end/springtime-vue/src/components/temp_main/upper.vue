@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    if (localStorage.getItem('username') !== null || localStorage.getItem('username') !== undefined) this.user.login = localStorage.getItem("username")
+    if (localStorage.getItem('login') !== null || localStorage.getItem('login') !== undefined) this.user.login = localStorage.getItem("login")
   },
   methods: {
     signout: function(event) {

@@ -42,16 +42,24 @@
         <label class="top_worlds">
           НАШИ ТЕЛЕФОНЫ
         </label>
+        <table class="parthners_table">
+          <tr>
         <label class="down_worlds">
-          <br/>
-          Отдел продаж:
-          <br/>
-          +7(999)999-99-99
-          <br/>
-          Отдел по работе с подрядчиком:
-          <br/>
-          +7(999)999-99-99
+
+
+              <br/>
+              Отдел продаж:
+              <br/>
+              +7(999)999-99-99
+              <br/>
+              Отдел по работе с подрядчиком:
+              <br/>
+              +7(999)999-99-99
+
+
         </label>
+          </tr>
+        </table>
       </div>
 
       <div>
@@ -59,6 +67,8 @@
         <label class="top_worlds">
           НАША ПОЧТА
         </label>
+        <table class="parthners_table">
+          <tr>
         <label class="down_worlds">
           <br/>
           Отдел работы с клиентами:
@@ -69,6 +79,8 @@
           <br/>
           info@mail.ru
         </label>
+          </tr>
+          </table>
       </div>
 
       <div>
@@ -76,6 +88,8 @@
         <label class="top_worlds">
           НАШ АДРЕС
         </label>
+        <table class="parthners_table">
+          <tr>
         <label class="down_worlds">
           <br/>
           Основной офис:
@@ -86,6 +100,8 @@
           <br/>
           г.Москва,ул.Иванова Ивана д.15
         </label>
+        </tr>
+        </table>
       </div>
 
     </div>
@@ -102,6 +118,11 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap%27');
+
+.parthners_table{
+  margin-left: 80px;
+  margin-top: -20px;
+}
 
 #input_1 { /*переделать*/
   outline: none;

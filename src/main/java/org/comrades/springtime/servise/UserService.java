@@ -18,6 +18,8 @@ public interface UserService {
 
     User saveUser(User user);
 
+    User updateFirstName(User user, String firstname);
+
     User getCurrentUser();
 
     List<User> getAll();

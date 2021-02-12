@@ -11,9 +11,9 @@
     <nav class="nav">
       <a class="nav__link" :class=" this.$route.name === 'main-page' ? 'active' : ''" @click="goTo('main')">Главная</a>
       <a class="nav__link" :class=" this.$route.name === 'lk-page' ? 'active' : ''" @click="goTo('lk')">Личный кабинет</a>
-      <a class="nav__link" :class=" this.$route.name === 'factor-page' ? 'active' : ''" href="#">Склад</a>
-      <a class="nav__link" :class=" this.$route.name === 'schedule-page' ? 'active' : ''" href="#">Расписание</a>
-      <a class="nav__link" :class=" this.$route.name === 'stream-page' ? 'active' : ''" href="#">Видеопоток</a>
+      <a class="nav__link" :class=" this.$route.name === 'factor-page' ? 'active' : ''" @click="goTo('sklad')">Склад</a>
+      <a class="nav__link" :class=" this.$route.name === 'schedule-page' ? 'active' : ''">Расписание</a>
+      <a class="nav__link" :class=" this.$route.name === 'stream-page' ? 'active' : ''">Видеопоток</a>
       <a class="nav__link" :class=" this.$route.name === 'phones-page' ? 'active' : ''" @click="goTo('phones')">О нас</a>
       <a class="nav__link" :class=" this.$route.name === 'lk-page' ? 'active' : ''" @click="goTo('lk')">{{ user.login }}</a>
       <a class="nav__link" @click="signout" style="margin-right: 50px">Выйти</a>

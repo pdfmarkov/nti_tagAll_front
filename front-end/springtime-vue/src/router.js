@@ -5,6 +5,7 @@ import error_container from "@/components/temp_views/error_container";
 import page_container from "@/components/temp_views/page_container";
 import lk_container from "@/components/temp_views/lk_container";
 import phones_container from "@/components/temp_views/phones_container";
+import sklad_container from "@/components/temp_views/sklad_container"; // warehouse!!!
 
 Vue.use(VueRouter);
 
@@ -27,11 +28,11 @@ export default new VueRouter({
                 typeOfPage: "auth",
             },
             beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
-                    next({name: 'main-page'})
-                } else {
+                // if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
+                //     next({name: 'main-page'})
+                // } else {
                     next()
-                }
+                //}
             }
 
         },
@@ -43,13 +44,24 @@ export default new VueRouter({
                 typeOfPage: "reg",
             },
             beforeEnter: (to, from, next) => {
-                if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
-                    next({name: 'main-page'})
-                } else {
-                    next()
-                }
+                // TODO: RETURN THIS PART
+                // if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
+                //     next({name: 'main-page'})
+                // } else {
+                //     next()
+                // }
+                next();
             }
 
+        },
+        {
+            path: '/sklad',
+            name: 'sklad-page',
+            component: sklad_container,
+            beforeEnter: (to, from, next) => {
+                next();
+                // TODO: RETURN AFTER ALL
+            }
         },
         {
             path: '/confirm',
